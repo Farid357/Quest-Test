@@ -7,7 +7,7 @@ namespace Quest.SaveSystem
     {
         public bool Exists(string path) => File.Exists(path);
 
-        public T Load<T>(string path, T loadObject)
+        public T Load<T>(string path)
         {
             if (Exists(path))
             {

@@ -1,46 +1,32 @@
-using Quest.SaveSystem;
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Quest.Data
 {
-    public sealed class ScreenData : MonoBehaviour
+    [Serializable]
+    public sealed class ScreenData
     {
-        [SerializeField] private List<Data> _all = new();
-        [SerializeField] private List<NodeCondition> _conditions = new();
+        private readonly List<Data> _all = new();
 
-        public IEnumerable<Data> All => _all;
-        public IEnumerable<NodeCondition> Conditions => _conditions;
+        public void Add(Data data) => _all.Add(data);
 
 
         [Serializable]
+
         public sealed class Data
         {
             public string Description;
             public string ChoiseDescription;
-            public byte Card;
-        }
+            public byte[] Card;
+            public Data Transition;
 
-        [Serializable]
-        public sealed class NodeCondition
-        {
-            public Node Node;
-        }
-    }
-
-    public enum Node
-    {
-        Success,
-        Error
-    }
-
-    public sealed class ScreenStorage
-    {
-        private IStorage
-        public IEnumerable<ScreenData.Data> LoadDatas()
-        {
-
+            public Data(string description, string choiseDescription, byte[] card, Data transition)
+            {
+                Description = description ?? throw new ArgumentNullException(nameof(description));
+                ChoiseDescription = choiseDescription ?? throw new ArgumentNullException(nameof(choiseDescription));
+                Card = card ?? throw new ArgumentNullException(nameof(card));
+                Transition = transition ?? throw new ArgumentNullException(nameof(transition));
+            }
         }
     }
 }
