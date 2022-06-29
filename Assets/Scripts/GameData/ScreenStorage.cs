@@ -11,7 +11,7 @@ namespace Quest.Data
         private readonly string _lastSavedDataPath = Path.Combine(Application.streamingAssetsPath + "/Data.json");
         private readonly ScreenData _screenData = new();
 
-        public void SaveData(ScreenData.Data data)
+        public void SaveData(ScreenData.Screen data)
         {
             _screenData.Add(data);
             _storage.Save(_path, _screenData);
@@ -19,12 +19,12 @@ namespace Quest.Data
 
         public ScreenData LoadAllData() => _storage.Load<ScreenData>(_path);
 
-        public bool TryLoad(out ScreenData.Data lastSavedData)
+        public bool TryLoad(out ScreenData.Screen lastSavedData)
         {
-            lastSavedData = _storage.Load<ScreenData.Data>(_lastSavedDataPath);
+            lastSavedData = _storage.Load<ScreenData.Screen>(_lastSavedDataPath);
             return lastSavedData == null;
         }
 
-        public void SaveLastData(ScreenData.Data data) => _storage.Save(_lastSavedDataPath, data);
+        public void SaveLastScreen(ScreenData.Screen data) => _storage.Save(_lastSavedDataPath, data);
     }
 }

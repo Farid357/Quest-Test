@@ -1,18 +1,14 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Quest.Input
 {
     public sealed class TouchInput : MonoBehaviour, IInput
     {
-        public event Action OnInputed;
+        public bool HasInputed { get; private set; }
 
         private void Update()
         {
-            if (UnityEngine.Input.touchCount > 0)
-            {
-                OnInputed?.Invoke();
-            }
+            HasInputed = UnityEngine.Input.GetMouseButtonDown(0);
         }
     }
 }

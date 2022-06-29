@@ -3,23 +3,26 @@ using System;
 
 namespace Quest.GameLogic
 {
-    public sealed class QuestSwitcher : IDisposable
+    public sealed class QuestSwitcher : IQuestSwitcher
     {
-        private readonly Quest _quest;
         private readonly IScreenStorage _screenStorage;
 
-        public QuestSwitcher(Quest quest, IScreenStorage screenStorage)
+        public QuestSwitcher(IScreenStorage screenStorage)
         {
-            _quest = quest ?? throw new ArgumentNullException(nameof(quest));
             _screenStorage = screenStorage ?? throw new ArgumentNullException(nameof(screenStorage));
-            _quest.OnCompleted += Switch;
         }
 
-        public void Dispose() => _quest.OnCompleted -= Switch;
 
-        public void Switch(ScreenData.Data data)
+        public event Action<ScreenData.Screen[]> OnSwitched;
+
+        public IQuest CurrentQuest { get; private set; }
+
+        public void Switch(ScreenData.Screen[] screens, IQuest quest = default)
         {
-            _screenStorage.SaveLastData(data);
+            CurrentQuest = quest;
+            var nextScreen = screens[0];
+            _screenStorage.SaveLastScreen(nextScreen);
+            OnSwitched?.Invoke(screens);
         }
     }
 }

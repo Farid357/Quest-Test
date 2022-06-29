@@ -6,26 +6,26 @@ namespace Quest.Data
     [Serializable]
     public sealed class ScreenData
     {
-        private readonly List<Data> _all = new();
+        private readonly List<Screen> _all = new();
 
-        public void Add(Data data) => _all.Add(data);
+        public void Add(Screen data) => _all.Add(data);
 
 
         [Serializable]
 
-        public sealed class Data
+        public sealed class Screen
         {
             public string Description;
             public string ChoiseDescription;
             public byte[] Card;
-            public Data Transition;
+            public Screen[] Transitions;
 
-            public Data(string description, string choiseDescription, byte[] card, Data transition)
+            public Screen(string description, string choiseDescription, byte[] card, Screen[] transitions)
             {
                 Description = description ?? throw new ArgumentNullException(nameof(description));
                 ChoiseDescription = choiseDescription ?? throw new ArgumentNullException(nameof(choiseDescription));
                 Card = card ?? throw new ArgumentNullException(nameof(card));
-                Transition = transition ?? throw new ArgumentNullException(nameof(transition));
+                Transitions = transitions ?? throw new ArgumentNullException(nameof(transitions));
             }
         }
     }
