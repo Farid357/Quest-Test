@@ -1,2 +1,3 @@
 # Quest-Test
-This game is a test task for middle, with various architecture solutions (you can see them in branches)
+Experiments with architecture.
+Researching mistakes in game composition
